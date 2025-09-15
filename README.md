@@ -1,4 +1,5 @@
 # Flipper HIDecoder
+<img width="55%" height="55%" alt="image" src="https://github.com/user-attachments/assets/78f8f39d-6414-4a85-81e0-e9372be7030a" />
 
 This Python code enables the quick decoding and conversion of 26-bit HID card data from the traditional ESP RFID Tool's HEX format to a usable Flipper HEX format for the Flipper Zero's HID H10301 card data while displaying the FC (Facility Code) and CN (Card Number). This script was presented at the BSides Caymans 2025 conference as part of the Flipside: Remote Badge Cloning Workshop.
 
