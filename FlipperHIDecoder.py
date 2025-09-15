@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+### Flipper HIDecoder by @sh0ckSec
+
 # ANSI color codes
 GREEN  = "\033[92m"
 RED    = "\033[91m"
@@ -91,3 +93,4 @@ def decode_hid(raw_hex):
 if __name__ == "__main__":
     raw_hex = input("Enter raw HEX from ESP-RFID Tool: ").strip().upper()
     decode_hid(raw_hex)
+
