@@ -4,7 +4,7 @@
 <img width="30%" height="30%" alt="image" src="https://github.com/user-attachments/assets/447ddd59-dfeb-4ac7-aab6-d56e3f39223a" />
 </p>
 
-This Python code enables the quick decoding and conversion of 26-bit HID card data from the traditional ESP RFID Tool's HEX format to a usable Flipper HEX format for the Flipper Zero's HID H10301 card data while displaying the FC (Facility Code) and CN (Card Number). This script was presented at the BSides Caymans 2025 conference as part of the Flipside: Remote Badge Cloning Workshop and has undergone a massive overhaul for DEF CON 34's talk **Clone to Pwn - Remote Badge Cloning with the Flipper Zero** Note: This script currently works best with HID 26-Bit cards. 
+This python code allows you to quickly decode and convert 26-bit HID card data from the traditional ESP RFID Tool's HEX into a useable Flipper HEX format for the Flipper Zero's HID H10301 card data format. This script was presented at the BSides Caymans 2025 conference as part of the Flipside: Remote Badge Cloning Workshop and has undergone a massive overhaul for DEF CON 34's talk **Clone to Pwn - Remote Badge Cloning with the Flipper Zero** Note: This script currently works best with HID 26-Bit cards. 
 
  *Disclaimer:* **This guide is for educational and ethical hacking purposes ONLY. All penetration testing activities must be authorized by all relevant parties.**
 
@@ -127,6 +127,7 @@ Once you remove the leading and trailing parity bits you'll be left with your fu
 <img width="400" height="245" alt="1-Defcon34Card-Manual-Recording 2026-07-31 120754" src="https://github.com/user-attachments/assets/7eac262f-4dc8-428d-8913-eee51ca9dedc" />
 
 Now you can easily write your payload to a physical RFID Card.
+
 <img width="50%" height="50%" alt="2-WritingCard-Recording 2026-07-31 121855" src="https://github.com/user-attachments/assets/6e5a2f2d-29b8-436c-a7d6-a02f08056f8c" />
 
 
