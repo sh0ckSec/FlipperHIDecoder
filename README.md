@@ -1,5 +1,8 @@
 <img width="1822" height="174" alt="image" src="https://github.com/user-attachments/assets/3ab48d82-3fc3-4300-9ce7-ae220eb13c8a" />
 
+<p align="center">
+<img width="30%" height="30%" alt="image" src="https://github.com/user-attachments/assets/447ddd59-dfeb-4ac7-aab6-d56e3f39223a" />
+</p>
 
 This Python code enables the quick decoding and conversion of 26-bit HID card data from the traditional ESP RFID Tool's HEX format to a usable Flipper HEX format for the Flipper Zero's HID H10301 card data while displaying the FC (Facility Code) and CN (Card Number). This script was presented at the BSides Caymans 2025 conference as part of the Flipside: Remote Badge Cloning Workshop and has undergone a massive overhaul for DEF CON 34's talk **Clone to Pwn - Remote Badge Cloning with the Flipper Zero** Note: This script currently works best with HID 26-Bit cards. 
 
@@ -106,10 +109,21 @@ You can easily parse the entire ESP-RFID log.txt file all at once.
 ### Background
 If you have ever worked with the ESP RFID tool, you will notice a string of HEX code after the binary data. The HEX from the ESP RFID Tool is used for the Proxmark3. For a few years now, the Flipper Zero has made it easier for Red Teamers to duplicate card data in the field. If you're on a badge cloning mission for a client, the ESP RFID tool is still a strong choice for [remote badge cloning](https://github.com/sh0ckSec/RFID-Gooseneck) options. The manual process to convert the 26-bit binary data into a Flipper Zero Hex looks like this:
 
-<img width="70%" height="70%" alt="image" src="https://github.com/user-attachments/assets/dea63c6d-937e-405b-a7d8-cfcd876433f1" />
-<img width="70%" height="70%" alt="image" src="https://github.com/user-attachments/assets/ff589ba5-915e-4fb2-bf62-64e564129af0" />
+<img width="2166" height="932" alt="image" src="https://github.com/user-attachments/assets/fe8ffebc-ec72-4e50-88dd-7ade7e253b98" />
+Once you remove the leading and trailing parity bits you'll be left with your full badge payload.
 
- Enter the Flipper HEX data into your H10301 option and boom! You now have the correct card data to continue your mission. Example:
+<img width="1936" height="1068" alt="image" src="https://github.com/user-attachments/assets/f43f1095-7c5c-468b-806c-bacdf2d69d4e" />
+
+
+
+ Enter the Flipper HEX data into your H10301 option and boom! You now have the correct card data to continue your mission.
+
+ ### Steps: 
+ 
+ ```Select 125khz > Add Manually > HID10301 > Enter 22 05 39 > Save > Name the Card > Save```
+
+
+
 
 <img width="70%" height="70%" alt="image" src="https://github.com/user-attachments/assets/25e152a0-675e-4be2-88c3-86c83642e471" />
 <img width="70%" height="70%" alt="image" src="https://github.com/user-attachments/assets/d2876370-91b2-4533-8709-c20f4b24f49d" />
