@@ -1,20 +1,113 @@
-# Flipper HIDecoder
-<img width="55%" height="55%" alt="image" src="https://github.com/user-attachments/assets/78f8f39d-6414-4a85-81e0-e9372be7030a" />
+<img width="1830" height="202" alt="image" src="https://github.com/user-attachments/assets/54dff77e-9b9d-4f33-a794-ef76a28587af" />
 
-This Python code enables the quick decoding and conversion of 26-bit HID card data from the traditional ESP RFID Tool's HEX format to a usable Flipper HEX format for the Flipper Zero's HID H10301 card data while displaying the FC (Facility Code) and CN (Card Number). This script was presented at the BSides Caymans 2025 conference as part of the Flipside: Remote Badge Cloning Workshop.
+
+This Python code enables the quick decoding and conversion of 26-bit HID card data from the traditional ESP RFID Tool's HEX format to a usable Flipper HEX format for the Flipper Zero's HID H10301 card data while displaying the FC (Facility Code) and CN (Card Number). This script was presented at the BSides Caymans 2025 conference as part of the Flipside: Remote Badge Cloning Workshop and has undergone a massive overhaul for DEF CON 34's talk **Clone to Pwn - Remote Badge Cloning with the Flipper Zero** Note: This script currently works best with HID 26-Bit cards. 
 
  *Disclaimer:* **This guide is for educational and ethical hacking purposes ONLY. All penetration testing activities must be authorized by all relevant parties.**
 
+<img width="2306" height="1140" alt="image" src="https://github.com/user-attachments/assets/03cefc24-7a4e-4c08-aae9-1c1b5435b5e2" />
+
+### FlipperHIDecoder.py
+
+```
+usage: FlipperHIDecoder.py [-h] [--version] [--pm3 HEX | --loot FILE]
+                           [--detail] [--verbose] [--stats] [--only-valid]
+                           [--csv] [--json] [--markdown] [--output FILE]
+                           [--export ZIP] [--export-all DIR] [--overwrite]
+                           [--no-fallback] [--no-banner]
+
+Flipper HIDecoder v3.2.5
+
+Decode authorized ESP-RFID Tool / Proxmark3 HEX captures into
+facility codes, card numbers, parity results, and Flipper-style HEX.
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --pm3, -pm3, --raw HEX
+                        decode one Proxmark3/ESP-RFID hexadecimal capture
+  --loot, -l, --log FILE
+                        parse an ESP-RFID loot/log file from line 3
+  --detail              add parity, Wiegand bits, window, source, and
+                        confidence
+  --verbose             show capture and candidate-selection details
+  --stats               print a summary after the results
+  --only-valid          hide captures that could not be decoded
+  --csv                 write CSV to stdout
+  --json                write JSON
+  --markdown            write a Markdown table
+  --output, -o, --out FILE
+                        write the selected text format to a file
+  --export ZIP          export valid-card CSV/JSON inventory manifests to a
+                        ZIP archive
+  --export-all DIR      export redacted H10301 .rfid templates and inventory
+                        manifests
+  --overwrite           replace an existing output file
+  --no-fallback         do not try other lengths when the reported length is
+                        unusable
+  --no-banner           suppress the startup banner
+
+Examples:
+  FlipperHIDecoder.py --pm3 2004420A73
+  FlipperHIDecoder.py --loot loot.txt
+  FlipperHIDecoder.py --loot loot.txt --detail --stats
+  FlipperHIDecoder.py --loot loot.txt --csv > cards.csv
+  FlipperHIDecoder.py --loot loot.txt --json --output cards.json
+  FlipperHIDecoder.py --loot loot.txt --export cards_inventory.zip
+  FlipperHIDecoder.py --pm3 2004420A73 --verbose
+
+Input:
+  --pm3 HEX              Decode one Proxmark3/ESP-RFID HEX capture
+  --loot FILE            Parse an ESP-RFID loot/log file from line 3
+
+Display:
+  --detail               Add parity, Wiegand bits, window, source, confidence
+  --verbose              Show capture and candidate-selection details
+  --stats                Print the processing summary
+  --only-valid           Hide undecodable captures
+  --no-banner            Suppress the startup banner
+
+Output:
+  --csv                  Output CSV
+  --json                 Output JSON
+  --markdown             Output a Markdown table
+  --output FILE          Write the selected output format to a file
+  --export ZIP           Export valid-card CSV/JSON inventory manifests to ZIP
+  --export-all DIR       Export redacted H10301 templates and manifests
+  --zip-manifest FILE    Alias for --export
+  --overwrite            Replace existing output files
+
+Decoder:
+  --no-fallback          Do not try other lengths when the reported length fails
+
+Configured formats:
+  26-bit  HID H10301       8-bit FC / 16-bit CN
+  33-bit  Generic/D10202   7-bit FC / 24-bit CN
+  34-bit  HID H10306      16-bit FC / 16-bit CN
+  35-bit  Corporate 1000  12-bit FC / 20-bit CN
+  37-bit  HID H10304      16-bit FC / 19-bit CN
+```
+
+## Single Payload Input
+ With this Python code, you can enter the raw HEX and decode and convert your payload quickly and easily.
+ 
+```python3 FlipperHIDecoder.py -pm3 2004440A73``` 
+
+<img width="1132" height="761" alt="defconSingle" src="https://github.com/user-attachments/assets/98518657-6319-4814-9627-0bcc3880e0b3" style="width: 80%; height: auto;" />
+
+## Multiple Payloads
+You can easily parse the entire ESP-RFID log.txt file all at once. 
+
+```python3 FlipperHIDecoder.py -l log.txt``` 
+
+<img width="1132" height="761" alt="defconBatch" src="https://github.com/user-attachments/assets/9a2ec737-81b8-4209-88b1-4312523b8ec8" style="width: 80%; height: auto;" />
+
+
+### Background
 If you have ever worked with the ESP RFID tool, you will notice a string of HEX code after the binary data. The HEX from the ESP RFID Tool is used for the Proxmark3. For a few years now, the Flipper Zero has made it easier for Red Teamers to duplicate card data in the field. If you're on a badge cloning mission for a client, the ESP RFID tool is still a strong choice for [remote badge cloning](https://github.com/sh0ckSec/RFID-Gooseneck) options. The manual process to convert the 26-bit binary data into a Flipper Zero Hex looks like this:
 
 <img width="70%" height="70%" alt="image" src="https://github.com/user-attachments/assets/dea63c6d-937e-405b-a7d8-cfcd876433f1" />
 <img width="70%" height="70%" alt="image" src="https://github.com/user-attachments/assets/ff589ba5-915e-4fb2-bf62-64e564129af0" />
-
-## FlipperHIDecoder.py
- With this Python code, you can enter the raw HEX and decode and convert your payload quickly and easily.
-
-<img width="70%" height="70%" alt="image" src="https://github.com/user-attachments/assets/84b529ac-bf4a-427c-902d-a0f60e26debb" />
-
 
  Enter the Flipper HEX data into your H10301 option and boom! You now have the correct card data to continue your mission. Example:
 
@@ -71,6 +164,10 @@ Group into the standard Wiegand-26 fields:
 W1 | W2..W9         | W10................W25         | W26
  0 | 00100001 (FC=33)| 0000010100111001 (CN=1337)   | 1
 ```
-Future updates will include other formats besides 26-bit after testing is complete. Thanks! 
+### Future Features
+* Additional bit rate support.
+* Exporting loot to .rfid files for seamless drag and drop onto your Flipper's SD card.
+* Supporting conversion for other vendors. 
+<img width="242" height="203" alt="DC34_icon" src="https://github.com/user-attachments/assets/92f42562-e62a-47f4-8821-887934bcfbda" />
 <img width="40%" height="40%" alt="BsidesCaymansLogo" src="https://github.com/user-attachments/assets/98ce5282-2e61-4891-9082-9106289bce15" />
 
