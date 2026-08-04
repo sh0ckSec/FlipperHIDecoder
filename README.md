@@ -171,3 +171,4 @@ W1 | W2..W9         | W10................W25         | W26
 <img width="242" height="203" alt="DC34_icon" src="https://github.com/user-attachments/assets/92f42562-e62a-47f4-8821-887934bcfbda" />
 <img width="40%" height="40%" alt="BsidesCaymansLogo" src="https://github.com/user-attachments/assets/98ce5282-2e61-4891-9082-9106289bce15" />
 
+This script was Co-Authored with ChatGPT.
