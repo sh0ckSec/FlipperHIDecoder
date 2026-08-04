@@ -124,11 +124,11 @@ Once you remove the leading and trailing parity bits you'll be left with your fu
 
 
 
+<img width="400" height="245" alt="1-Defcon34Card-Manual-Recording 2026-07-31 120754" src="https://github.com/user-attachments/assets/7eac262f-4dc8-428d-8913-eee51ca9dedc" />
 
-<img width="70%" height="70%" alt="image" src="https://github.com/user-attachments/assets/25e152a0-675e-4be2-88c3-86c83642e471" />
-<img width="70%" height="70%" alt="image" src="https://github.com/user-attachments/assets/d2876370-91b2-4533-8709-c20f4b24f49d" />
-<img width="70%" height="70%" alt="image" src="https://github.com/user-attachments/assets/3462a0a3-a00c-4159-9935-01cfb505b5e6" />
-<img width="70%" height="70%" alt="image" src="https://github.com/user-attachments/assets/9ae37371-a82a-40bd-a100-94340b4efb9d" />
+Now you can easily write your payload to a physical RFID Card.
+<img width="50%" height="50%" alt="2-WritingCard-Recording 2026-07-31 121855" src="https://github.com/user-attachments/assets/6e5a2f2d-29b8-436c-a7d6-a02f08056f8c" />
+
 
 
 ## HID Card Bit Breakdown
